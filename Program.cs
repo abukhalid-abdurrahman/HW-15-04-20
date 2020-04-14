@@ -38,7 +38,7 @@ namespace Day_12
         ///</summary>
         public void Insert(params string[] content)
         {
-            string cmd = $"insert into Person(LastName, FirstName, MiddleName, BirthDay) values({content[0]}, {content[1]}, {content[2]}, {content[3]})";
+            string cmd = $"insert into Person(LastName, FirstName, MiddleName, BirthDate) values('{content[0]}', '{content[1]}', '{content[2]}', '{content[3]}')";
             sqlCmd = new SqlCommand(cmd, sqlConnection);
             if(this.Connect())
             {
@@ -72,7 +72,7 @@ namespace Day_12
         ///</summary>
         public void SelectByID(int ID)
         {
-            string cmd = $"select (LastName, FirstName, MiddleName, BirthDay) from Person where ID = {ID}";
+            string cmd = $"select LastName, FirstName, MiddleName, BirthDate from Person where ID = {ID}";
             sqlCmd = new SqlCommand(cmd, sqlConnection);
             if(this.Connect())
             {
@@ -89,7 +89,7 @@ namespace Day_12
         ///</summary>
         public void Update(int ID, params string[] data)
         {
-            string cmd = $"update Person set LastName = {data[0]}, FirstName = {data[1]}, MiddleName = {data[2]}, BirthDay = {data[3]} where ID = {ID}";
+            string cmd = $"update Person set LastName = '{data[0]}', FirstName = '{data[1]}', MiddleName = '{data[2]}', BirthDate = '{data[3]}' where ID = {ID}";
             sqlCmd = new SqlCommand(cmd, sqlConnection);
             if(this.Connect())
             {
@@ -136,23 +136,45 @@ namespace Day_12
                 cmd = Console.ReadLine();
                 if(cmd == "1")
                 {
-
+                    Console.WriteLine("Введите имя: ");
+                    string s1 = Console.ReadLine();
+                    Console.WriteLine("Введите фамилию: ");
+                    string s2 = Console.ReadLine();
+                    Console.WriteLine("Введите отчество: ");
+                    string s3 = Console.ReadLine();
+                    Console.WriteLine("Введите дату рождения: ");
+                    string s4 = Console.ReadLine();
+                    sqlHelp.Insert(s1, s2, s3, s4);
                 }
                 else if(cmd == "2")
                 {
-
+                    Console.WriteLine("Введите ID: ");
+                    int ID = int.Parse(Console.ReadLine());
+                    sqlHelp.Delete(ID);
                 }
                 else if(cmd == "3")
                 {
-
+                    sqlHelp.SelectAll();
                 }
                 else if(cmd == "4")
                 {
-
+                    Console.WriteLine("Введите ID: ");
+                    int ID = int.Parse(Console.ReadLine());
+                    sqlHelp.SelectByID(ID);
                 }
                 else if(cmd == "5")
                 {
-
+                    Console.WriteLine("Введите ID: ");
+                    int ID = int.Parse(Console.ReadLine());
+                    Console.WriteLine("Введите имя: ");
+                    string s1 = Console.ReadLine();
+                    Console.WriteLine("Введите фамилию: ");
+                    string s2 = Console.ReadLine();
+                    Console.WriteLine("Введите отчество: ");
+                    string s3 = Console.ReadLine();
+                    Console.WriteLine("Введите дату рождения: ");
+                    string s4 = Console.ReadLine();
+                    sqlHelp.Update(ID, s1, s2, s3, s4);
                 }
                 Console.WriteLine(menu);
             }
