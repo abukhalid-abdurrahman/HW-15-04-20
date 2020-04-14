@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.SqlClient;
 
 namespace Day_12
 {
@@ -66,7 +67,39 @@ namespace Day_12
     {
         static void Main(string[] args)
         {
+            string menu = "\n1.\tДобавить\n"
+                        + "2.\tУдалить\n"
+                        + "3.\tВыбрать все\n"
+                        + "4.\tВыбрать по ID\n"
+                        + "5.\tОбновить\n"
+                        + "0.\tВыход\n";
+            Console.WriteLine("Здравствуйте! Выберите что вы хотите сделать: " + menu);
+            string cmd = string.Empty;
+            while(cmd != "0")
+            {
+                cmd = Console.ReadLine();
+                if(cmd == "1")
+                {
 
+                }
+                else if(cmd == "2")
+                {
+
+                }
+                else if(cmd == "3")
+                {
+
+                }
+                else if(cmd == "4")
+                {
+
+                }
+                else if(cmd == "5")
+                {
+
+                }
+                Console.WriteLine(menu);
+            }
         }
     }
 }
