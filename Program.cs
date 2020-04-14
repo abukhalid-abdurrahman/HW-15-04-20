@@ -36,9 +36,18 @@ namespace Day_12
         ///<summary>
         ///Выполняет добавление данных в SQL СУБД таблицу
         ///</summary>
-        public void Insert(string content)
+        public void Insert(params string[] content)
         {
-
+            string cmd = $"insert into Person(LastName, FirstName, MiddleName, BirthDay) values({content[0]}, {content[1]}, {content[2]}, {content[3]})";
+            sqlCmd = new SqlCommand(cmd, sqlConnection);
+            if(this.Connect())
+            {
+                sqlCmd.ExecuteNonQuery();
+                this.Close();
+                Console.WriteLine("Данные добавлены");
+            }
+            else
+                Console.WriteLine("Ошибка соединения");
         }
 
         ///<summary>
@@ -46,7 +55,16 @@ namespace Day_12
         ///</summary>
         public void SelectAll()
         {
-            
+            string cmd = "select * from Person";
+            sqlCmd = new SqlCommand(cmd, sqlConnection);
+            if(this.Connect())
+            {
+                sqlCmd.ExecuteNonQuery();
+                this.Close();
+                Console.WriteLine("Все элементы были выбраны.");
+            }
+            else
+                Console.WriteLine("Ошибка соединения");
         }
 
         ///<summary>
@@ -54,15 +72,33 @@ namespace Day_12
         ///</summary>
         public void SelectByID(int ID)
         {
-
+            string cmd = $"select (LastName, FirstName, MiddleName, BirthDay) from Person where ID = {ID}";
+            sqlCmd = new SqlCommand(cmd, sqlConnection);
+            if(this.Connect())
+            {
+                sqlCmd.ExecuteNonQuery();
+                this.Close();
+                Console.WriteLine($"Данные выбраны по {ID}");
+            }
+            else
+                Console.WriteLine("Ошибка соединения");
         }
 
         ///<summary>
-        ///Выполняет обновление каждого элемента, кроме указонного через параметр ID
+        ///Выполняет обновление каждого элемента, по указонному параметру ID
         ///</summary>
-        public void Update(int ID)
+        public void Update(int ID, params string[] data)
         {
-
+            string cmd = $"update Person set LastName = {data[0]}, FirstName = {data[1]}, MiddleName = {data[2]}, BirthDay = {data[3]} where ID = {ID}";
+            sqlCmd = new SqlCommand(cmd, sqlConnection);
+            if(this.Connect())
+            {
+                sqlCmd.ExecuteNonQuery();
+                this.Close();
+                Console.WriteLine("Данные обновленны");
+            }
+            else
+                Console.WriteLine("Ошибка соединения");
         }
 
         ///<summary>
@@ -70,7 +106,16 @@ namespace Day_12
         ///</summary>
         public void Delete(int ID)
         {
-
+            string cmd = $"delete Person where ID = {ID}";
+            sqlCmd = new SqlCommand(cmd, sqlConnection);
+            if(this.Connect())
+            {
+                sqlCmd.ExecuteNonQuery();
+                this.Close();
+                Console.WriteLine("Данные удаленны");
+            }
+            else
+                Console.WriteLine("Ошибка соединения");
         }
     }
     class Program
@@ -85,13 +130,13 @@ namespace Day_12
                         + "0.\tВыход\n";
             Console.WriteLine("Здравствуйте! Выберите что вы хотите сделать: " + menu);
             string cmd = string.Empty;
-            SqlHelper sqlHelp = new SqlHelper(@"");
+            SqlHelper sqlHelp = new SqlHelper(@"Data Source=.;Initial Catalog=Sample;Integrated Security=true;");
             while(cmd != "0")
             {
                 cmd = Console.ReadLine();
                 if(cmd == "1")
                 {
-                    
+
                 }
                 else if(cmd == "2")
                 {
