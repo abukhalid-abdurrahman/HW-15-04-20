@@ -5,22 +5,32 @@ namespace Day_12
 {
     class SqlHelper
     {
-        private string _conStr = string.Empty;
-        
+        private SqlConnection sqlConnection;
+        private SqlCommand sqlCmd;
+        private SqlDataReader sqlDataReader;
         public SqlHelper(string connetctionString)
         {
-            _conStr = connetctionString;
+            sqlConnection = new SqlConnection(connetctionString);
         }
 
         ///<summary>
         ///Выполняет соединение с SQL СУБД. Возвращает True - если соединение созданно успешно, иначе False
         ///</summary>
-        public bool Connetc()
+        public bool Connect()
         {
-            if(connection.State == ConnectionState.Open)
+            sqlConnection.Open();
+            if(sqlConnection.State == System.Data.ConnectionState.Open)
                 return true;
             else
                 return false;
+        }
+
+        ///<summary>
+        ///Выполняет отсаединение от SQL СУБД
+        ///</summary>
+        public void Close()
+        {
+            sqlConnection.Close();
         }
 
         ///<summary>
@@ -75,12 +85,13 @@ namespace Day_12
                         + "0.\tВыход\n";
             Console.WriteLine("Здравствуйте! Выберите что вы хотите сделать: " + menu);
             string cmd = string.Empty;
+            SqlHelper sqlHelp = new SqlHelper(@"");
             while(cmd != "0")
             {
                 cmd = Console.ReadLine();
                 if(cmd == "1")
                 {
-
+                    
                 }
                 else if(cmd == "2")
                 {
