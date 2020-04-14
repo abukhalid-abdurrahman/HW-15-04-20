@@ -7,7 +7,6 @@ namespace Day_12
     {
         private SqlConnection sqlConnection;
         private SqlCommand sqlCmd;
-        private SqlDataReader sqlDataReader;
         public SqlHelper(string connetctionString)
         {
             sqlConnection = new SqlConnection(connetctionString);
@@ -130,7 +129,7 @@ namespace Day_12
                         + "0.\tВыход\n";
             Console.WriteLine("Здравствуйте! Выберите что вы хотите сделать: " + menu);
             string cmd = string.Empty;
-            SqlHelper sqlHelp = new SqlHelper(@"Data Source=.;Initial Catalog=Sample;Integrated Security=true;");
+            SqlHelper sqlHelp = new SqlHelper(@"Data Source=localhost;Initial Catalog=Faridun;Integrated Security=true;");
             while(cmd != "0")
             {
                 cmd = Console.ReadLine();
